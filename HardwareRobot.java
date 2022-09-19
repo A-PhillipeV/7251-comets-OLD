@@ -21,7 +21,7 @@ import java.util.Locale;
  *   Put in ALL initilization/hardwareMaps that you need here !!
  */
 
-public class HardwareAuto {
+public class HardwareRobot {
 
     /* Public Opmode Members */
     public DcMotor motorRight;
@@ -36,7 +36,7 @@ public class HardwareAuto {
     /* Local OpMode Members */
     HardwareMap hwMap = null;
 
-    public HardwareAuto() {
+    public HardwareRobot() {
     }
 
     public void init(HardwareMap ahwMap) {
@@ -55,16 +55,6 @@ public class HardwareAuto {
         elbow.setPower(0);
         wrist.setPower(0);
 
-        motorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        elbow.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        wrist.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        elbow.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
         /* Servos */
         hand = hwMap.servo.get("Hand");
         platform = hwMap.crservo.get("Platform");
@@ -78,6 +68,30 @@ public class HardwareAuto {
         parameters.loggingEnabled      = true;
         parameters.loggingTag          = "IMU";
         parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+    }
+
+    public void enableEncoders() {
+        motorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        elbow.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        wrist.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        elbow.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+
+    public void disableEncoders() {
+        motorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        wrist.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        elbow.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        wrist.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        elbow.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
 }
