@@ -20,3 +20,23 @@ http://192.168.43.1:8080/dash
 
 7251 Handbook:   
 https://docs.google.com/document/d/1x8hSlBrLIcQmxfHnqMxywp3bEHRAU8E4cPc_SarHzqw/edit?usp=sharing
+
+
+
+
+FOR ADDING TF 9/18/22
+
+in src directory:
+- make an "assets" folder
+   - put the labels.txt and test1.tflite files in it
+   
+in teamcode directory:
+- add the GenericDetector and GenericRecognitionTest files into it
+- add the tfrec folder inside
+
+
+in build.dependencies.gradle:
+- add:
+      implementation('org.tensorflow:tensorflow-lite:2.0.0')
+      implementation('org.tensorflow:tensorflow-lite-gpu:2.0.0')
+      implementation('org.tensorflow:tensorflow-lite-support:0.0.0-nightly') { changing = true }
