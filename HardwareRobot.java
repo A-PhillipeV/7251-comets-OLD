@@ -17,11 +17,13 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import java.util.Locale;
 
 /**
- *   NOT AN OPMODE! ONLY FOR AUTONOMOUS!!!!!!!!!!!
+ *   NOT AN OPMODE!!!
  *   Put in ALL initilization/hardwareMaps that you need here !!
  */
 
 public class HardwareRobot {
+
+    private LinearOpMode myOpMode = null;   // gain access to methods in the calling OpMode.
 
     /* Public Opmode Members */
     public DcMotor motorRight;
@@ -36,16 +38,16 @@ public class HardwareRobot {
     /* Local OpMode Members */
     HardwareMap hwMap = null;
 
-    public HardwareRobot() {
+    public HardwareRobot(LinearOpMode opmode) {
+        myOpMode = opmode;
     }
 
-    public void init(HardwareMap ahwMap) {
+    public void init() {
         /* Motors */
-        hwMap = ahwMap;
-        motorLeft = hwMap.dcMotor.get("Left_Motor");
-        motorRight = hwMap.dcMotor.get("Right_Motor");
-        elbow = hwMap.dcMotor.get("Elbow");
-        wrist = hwMap.dcMotor.get("Wrist");
+        motorLeft = myOpMode.hardwareMap.get(DcMotor.class, "Left_Motor");
+        motorRight = myOpMode.hardwareMap.get(DcMotor.class, "Right_Motor");
+        elbow = myOpMode.hardwareMap.get(DcMotor.class, "Elbow");
+        wrist = myOpMode.hardwareMap.get(DcMotor.class, "Wrist");
 
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
         motorRight.setDirection(DcMotor.Direction.FORWARD);
