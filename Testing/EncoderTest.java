@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Testing;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -9,10 +9,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 
+import org.firstinspires.ftc.teamcode.HardwareRobot;
+
 @Autonomous(name="EncoderTest", group="Robot")
 //@Disabled
 public class EncoderTest extends LinearOpMode {
-    HardwareAuto robot = new HardwareAuto();
+    HardwareRobot robot = new HardwareRobot(this);
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -28,10 +30,9 @@ public class EncoderTest extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        /* Initilization and Dashboard Configuration
-        * TODO: maybe put dashboard into hardware class?
-        */
-        robot.init(hardwareMap);// done !
+        robot.init();// done !
+        robot.enableEncoders();
+
         FtcDashboard dashboard = FtcDashboard.getInstance();
         telemetry = dashboard.getTelemetry();
 
