@@ -14,12 +14,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class BarthTeleOp extends LinearOpMode {
 
     // Declare OpMode members.
-    HardwareTeleOp robot = new HardwareTeleOp();
+    HardwareRobot robot = new HardwareRobot(this);
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() {
-        robot.init(hardwareMap);
+        robot.init();
         FtcDashboard dashboard = FtcDashboard.getInstance();
         telemetry = dashboard.getTelemetry();
 
@@ -35,8 +35,8 @@ public class BarthTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
 
             // Setup a variable for each drive wheel to save power level for telemetry
-            double leftPower;
-            double rightPower;
+            double leftPower = 0;
+            double rightPower = 0;
             double wristPower = 0;
             double outerPower = 1;
 

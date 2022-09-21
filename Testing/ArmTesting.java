@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Testing;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
@@ -11,13 +11,15 @@ import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.HardwareRobot;
+
 @Config
 @TeleOp(name="ArmTesting", group="Linear Opmode")
 //@Disabled
 public class ArmTesting extends LinearOpMode {
 
     // Declare OpMode members.
-    HardwareTeleOp robot = new HardwareTeleOp();
+    HardwareRobot robot = new HardwareRobot(this);
     private ElapsedTime runtime = new ElapsedTime();
 
     double elbowPower = 0;
@@ -34,7 +36,7 @@ public class ArmTesting extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        robot.init(hardwareMap);
+        robot.init();
         FtcDashboard dashboard = FtcDashboard.getInstance();
         telemetry = dashboard.getTelemetry();
 

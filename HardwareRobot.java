@@ -17,11 +17,13 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import java.util.Locale;
 
 /**
- *   NOT AN OPMODE! ONLY FOR AUTONOMOUS!!!!!!!!!!!
+ *   NOT AN OPMODE!!!
  *   Put in ALL initilization/hardwareMaps that you need here !!
  */
 
-public class HardwareAuto {
+public class HardwareRobot {
+
+    private LinearOpMode myOpMode = null;   // gain access to methods in the calling OpMode.
 
     /* Public Opmode Members */
     public DcMotor motorRight;
@@ -36,16 +38,16 @@ public class HardwareAuto {
     /* Local OpMode Members */
     HardwareMap hwMap = null;
 
-    public HardwareAuto() {
+    public HardwareRobot(LinearOpMode opmode) {
+        myOpMode = opmode;
     }
 
-    public void init(HardwareMap ahwMap) {
+    public void init() {
         /* Motors */
-        hwMap = ahwMap;
-        motorLeft = hwMap.dcMotor.get("Left_Motor");
-        motorRight = hwMap.dcMotor.get("Right_Motor");
-        elbow = hwMap.dcMotor.get("Elbow");
-        wrist = hwMap.dcMotor.get("Wrist");
+        motorLeft = myOpMode.hardwareMap.get(DcMotor.class, "Left_Motor");
+        motorRight = myOpMode.hardwareMap.get(DcMotor.class, "Right_Motor");
+        elbow = myOpMode.hardwareMap.get(DcMotor.class, "Elbow");
+        wrist = myOpMode.hardwareMap.get(DcMotor.class, "Wrist");
 
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
         motorRight.setDirection(DcMotor.Direction.FORWARD);
@@ -54,16 +56,6 @@ public class HardwareAuto {
         motorLeft.setPower(0);
         elbow.setPower(0);
         wrist.setPower(0);
-
-        motorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        elbow.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        wrist.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        elbow.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         /* Servos */
         hand = hwMap.servo.get("Hand");
@@ -78,6 +70,30 @@ public class HardwareAuto {
         parameters.loggingEnabled      = true;
         parameters.loggingTag          = "IMU";
         parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+    }
+
+    public void enableEncoders() {
+        motorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        wrist.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        elbow.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        wrist.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        elbow.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+
+    public void disableEncoders() {
+        motorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        wrist.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        elbow.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        wrist.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        elbow.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
 }
