@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Comp;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.HardwareRobot;
 
 @TeleOp(name="BarthTeleOp", group="Linear Opmode")
 //@Disabled
@@ -29,7 +31,7 @@ public class BarthTeleOp extends LinearOpMode {
         double handPower;
         double platformPower = 0.0;
         double elbowPower = 0.0;
-
+        double speed = 0;
         waitForStart();
 
         while (opModeIsActive()) {
@@ -55,69 +57,68 @@ public class BarthTeleOp extends LinearOpMode {
             double axisWheel;
             double turningWheel = high_speed;
 
+            if(gamepad1.dpad_down){
+                speed = 0.25;
+            }
+            if(gamepad1.dpad_left){
+                speed = 0.50;
+            }
+            if(gamepad1.dpad_up){
+                speed = 0.75;
+            }
+            if(gamepad1.dpad_right){
+                speed = 1.00;
+            }
+
             //moving forward
-            if(gamepad1.b) // backwards
+            if (gamepad1.b) // backwards
             {
-                if(gamepad1.left_stick_x < 0 || gamepad1.dpad_left)//turning left while going forward
+                if (gamepad1.left_stick_x < 0 || gamepad1.dpad_left)//turning left while going forward
                 {
                     leftPower = -normal_speed;
                     rightPower = -high_speed;
-                }
-
-                else if(gamepad1.left_stick_x > 0 || gamepad1.dpad_right) // turning right while going forward
+                } else if (gamepad1.left_stick_x > 0 || gamepad1.dpad_right) // turning right while going forward
                 {
                     leftPower = -high_speed;
                     rightPower = -normal_speed;
-                }
-
-                else //going straight ahead
+                } else //going straight ahead
                 {
-                    leftPower =   -high_speed;
-                    rightPower =  -high_speed;
+                    leftPower = -high_speed;
+                    rightPower = -high_speed;
                 }
-            }
-
-            else if(gamepad1.a) //forward
+            } else if (gamepad1.a) //forward
             {
-                if(gamepad1.left_stick_x < 0 || gamepad1.dpad_left)//turning left while going forward
+                if (gamepad1.left_stick_x < 0 || gamepad1.dpad_left)//turning left while going forward
                 {
                     leftPower = normal_speed;
                     rightPower = high_speed;
-                }
-
-                else if(gamepad1.left_stick_x > 0 || gamepad1.dpad_right) // turning right while going forward
+                } else if (gamepad1.left_stick_x > 0 || gamepad1.dpad_right) // turning right while going forward
                 {
                     leftPower = high_speed;
                     rightPower = normal_speed;
-                }
-
-                else //going straight ahead
+                } else //going straight ahead
                 {
-                    leftPower =   high_speed;
-                    rightPower =  high_speed;
+                    leftPower = speed;
+                    rightPower = speed;
                 }
 
             }//end of going forward
 
-            else if(gamepad1.left_stick_x < 0 || gamepad1.dpad_left) //turn left in place
+            else if (gamepad1.left_stick_x < 0) //turn left in place
             {
-                leftPower =  -low_speed;
+                leftPower = -low_speed;
                 rightPower = low_speed;
-            }
-
-            else if(gamepad1.left_stick_x > 0 || gamepad1.dpad_right) //turn right in place
+            } else if (gamepad1.left_stick_x > 0 ) //turn right in place
             {
                 leftPower = low_speed;
                 rightPower = -low_speed;
-            }
-
-            else //stop
+            } else //stop
             {
                 leftPower = 0;
                 rightPower = 0;
             }
 
-            if(gamepad1.left_trigger != 0) {
+            if (gamepad1.left_trigger != 0) {
                 leftPower /= 1.7;
                 rightPower /= 1.7;
             }
@@ -125,19 +126,18 @@ public class BarthTeleOp extends LinearOpMode {
             robot.motorRight.setPower(rightPower);
 
 
-
             //P2 (grabbing/platform)
 
             //left stick = elbow
 
-            if(!(gamepad2.left_stick_y == 0)) {
+            if (!(gamepad2.left_stick_y == 0)) {
                 elbowPower = -gamepad2.left_stick_y / 2.5;
                 robot.elbow.setDirection(DcMotorSimple.Direction.REVERSE);
                 robot.elbow.setPower(elbowPower);
             }
 
             //right stick = wrist
-            if(!(gamepad2.right_stick_y == 0)) {
+            if (!(gamepad2.right_stick_y == 0)) {
                 wristPower = -gamepad2.right_stick_y / 2.5;
                 robot.wrist.setPower(-wristPower);
             }
@@ -145,19 +145,18 @@ public class BarthTeleOp extends LinearOpMode {
 
             //right trigger and left trigger = hand
             handPower = 0;
-            if(gamepad2.right_trigger != 0) {
+            if (gamepad2.right_trigger !=   0) {
                 handPower = 1;
-            }
-            else if(gamepad2.left_trigger != 0) {
+            } else if (gamepad2.left_trigger != 0) {
                 handPower = -1;
             }
             robot.hand.setPosition(handPower);
 
             //dpad = platform
             platformPower = 0.0;
-            if(gamepad2.left_trigger != 0 || gamepad2.dpad_left)
+            if (gamepad2.left_trigger != 0 || gamepad2.dpad_left)
                 platformPower = -1;
-            else if(gamepad2.left_bumper || gamepad2.dpad_right)
+            else if (gamepad2.left_bumper || gamepad2.dpad_right)
                 platformPower = 1;
             robot.platform.setPower(platformPower);
 
@@ -169,7 +168,32 @@ public class BarthTeleOp extends LinearOpMode {
             telemetry.addData("Platform spinner", "spinner (%.2f),", platformPower);
             telemetry.addData("position Elbow ", robot.elbow.getCurrentPosition());
             telemetry.addData("position Wrist", robot.wrist.getCurrentPosition());
+            telemetry.addData("Please work :) speed:", speed);
             telemetry.update();
+        }
+    }
+
+    class Speed{
+        private double vel;
+
+        public Speed() {
+            vel = 0.5;
+        }
+
+        public double getVel() {
+            return vel;
+        }
+
+        public void downVel() {
+            if (vel > 0) {
+                vel -= 0.01;
+            }
+        }
+
+        public void upVel() {
+            if (vel < 1) {
+                vel += 0.01;
+            }
         }
     }
 }
