@@ -3,7 +3,10 @@ This GitHub repository is the heart of 7251-Comets. This repo is for the 2022-20
 7251 Handbook: https://docs.google.com/document/d/1x8hSlBrLIcQmxfHnqMxywp3bEHRAU8E4cPc_SarHzqw/edit?usp=sharing
 
 ## Using This Repo
-Download the current FTC-Robot Controller SDK and go to the FtcRobotController/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/ folder and copypaste all of the given files in this rep. 
+
+__Disclaimer: If you use this repo by it's own, it will not work!!__  
+Download the current FTC-Robot Controller SDK: https://github.com/FIRST-Tech-Challenge/FtcRobotController 
+Go to the FtcRobotController/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/ folder and copypaste all of the given files in this rep. 
 We are currrently using:
 - FTC Dashboard
 - RoadRunner
@@ -11,7 +14,7 @@ We are currrently using:
 If you want to add these + any extra stuff, follow the instructions below !
 
 ## FTC Dashboard:
-Follow guide on: https://acmerobotics.github.io/ftc-dashboard/gettingstarted
+Follow guide on: https://acmerobotics.github.io/ftc-dashboard/gettingstarted  
 To access FTC dash, type in:   
 http://192.168.43.1:8080/dash
 
