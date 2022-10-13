@@ -35,23 +35,19 @@ public class DavidTeleOp extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+            double y = -gamepad1.left_stick_y; // Remember, this is reversed!
+            double x = gamepad1.left_stick_x;
 
-            robot.motorRight(rmPower);
-            robot.motorLeft(lm);
-            robot.wrist.setPower(wristPower);
-            robot.elbow.setPower(handPower);
-            robot.platform.setPower(platformPower);
-            robot.hand.setPosition(handPower);
+            robot.motorLeft.setPower(y + x);
+            robot.motorRight.setPower(y - x);
 
 
             /* TELEMETRY */
             // Show the elapsed game time and wheel power.
             //telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-            telemetry.addData("Platform spinner", "spinner (%.2f),", platformPower);
-            telemetry.addData("position Elbow ", robot.elbow.getCurrentPosition());
-            telemetry.addData("position Wrist", robot.wrist.getCurrentPosition());
-            telemetry.addData("Please work :) speed:", speed);
+            //telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+            telemetry.addData("gampad 1 y", y);
+            telemetry.addData("gampad 1 x", x);
             telemetry.update();
         }
     }
