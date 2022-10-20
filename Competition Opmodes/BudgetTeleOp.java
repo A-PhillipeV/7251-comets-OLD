@@ -33,7 +33,7 @@ public class BudgetTeleOp extends LinearOpMode {
             double frontRightPower = (y - x - rx) / denominator;
             double backRightPower = (y + x - rx) / denominator;
 
-            //TODO: Make this chill out!!
+            //TODO: Make this chill out!! multiply the powers w a contstant like .75 or .5, like frontLeftPower*.75 or smething
             
             robot.motor1.setPower(frontLeftPower);
             robot.motor2.setPower(backLeftPower);
