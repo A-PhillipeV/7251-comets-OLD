@@ -1,3 +1,7 @@
+/* 
+ * MECANUM/HOLOMETRIC MODE TELE OP MODE
+ */
+
 package org.firstinspires.ftc.teamcode.Comp;
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -22,8 +26,8 @@ public class BudgetTeleOp extends LinearOpMode {
 
         waitForStart();
         while (opModeIsActive()) {
-            double y = -gamepad1.left_stick_y;
-            double x = gamepad1.left_stick_x * 1.1;
+            double x = gamepad1.left_stick_y;
+            double y = -gamepad1.left_stick_x * 1.1;
             double rx = gamepad1.right_stick_x;
 
             //Used to ensure same ratio and contain values between [-1,1]
@@ -33,17 +37,19 @@ public class BudgetTeleOp extends LinearOpMode {
             double frontRightPower = (y - x - rx) / denominator;
             double backRightPower = (y + x - rx) / denominator;
 
-            //TODO: Make this chill out!! multiply the powers w a contstant like .75 or .5, like frontLeftPower*.75 or smething
-            
-            robot.motor1.setPower(frontLeftPower);
-            robot.motor2.setPower(backLeftPower);
-            robot.motor3.setPower(frontRightPower);
-            robot.motor4.setPower(backRightPower);
+            double throtte_control = .5;
+            robot.motor1.setPower(frontLeftPower*throtte_control);
+            robot.motor2.setPower(backLeftPower*throtte_control);
+            robot.motor3.setPower(frontRightPower*throtte_control);
+            robot.motor4.setPower(backRightPower*throtte_control);
 
-
-            telemetry.addData("X input", gamepad1.right_stick_x);
-            telemetry.update();
         }
+    }
+
+
+    void motorTelemetry() {
+        telemetry.addData("Front", gamepad1.right_stick_x);
+        telemetry.addData("Front", gamepad1.right_stick_x);
     }
 }
 
